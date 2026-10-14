@@ -1,0 +1,10 @@
+# Local Claude Code settings (personal permissions)
+.claude/settings.local.json
+
+# OS / editor junk
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/
+*.log
+__pycache__/

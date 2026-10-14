@@ -1,0 +1,568 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Nivara — Bioform, packaging that returns to nature</title>
+  <meta name="description" content="Nivara makes Nivara Bioform, a PHA (polyhydroxyalkanoate) bio-polymer grown by microbes from waste, to replace plastic in packaging. It works like plastic on the shelf and breaks down like a leaf after use." />
+  <meta name="theme-color" content="#07140F" />
+  <meta property="og:title" content="Nivara Bioform — Packaging that returns to nature" />
+  <meta property="og:description" content="Packaging that returns to nature. A microbe-made bio-polymer built to replace plastic." />
+  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,300..800,0..100;1,9..144,300..800,0..100&family=JetBrains+Mono:wght@400;500&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body class="is-loading">
+
+  <!-- ============ PRELOADER ============ -->
+  <div class="loader" aria-hidden="true">
+    <div class="loader__inner">
+      <svg class="loader__mark" viewBox="0 0 32 32"><use href="#mark" /></svg>
+      <div class="loader__word"><span>N</span><span>i</span><span>v</span><span>a</span><span>r</span><span>a</span></div>
+      <div class="loader__count mono"><span class="js-count">0</span>%</div>
+    </div>
+    <div class="loader__bar"><span></span></div>
+  </div>
+
+  <!-- Shared SVG symbols -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+      <linearGradient id="gLeafA" x1="0" y1="1" x2="0.3" y2="0">
+        <stop offset="0" stop-color="#9EDB4B" /><stop offset="1" stop-color="#E4FF9C" />
+      </linearGradient>
+      <linearGradient id="gLeafB" x1="1" y1="1" x2="0.7" y2="0">
+        <stop offset="0" stop-color="#E9A44C" /><stop offset="1" stop-color="#F7D9A0" />
+      </linearGradient>
+    </defs>
+    <symbol id="mark" viewBox="0 0 32 32">
+      <path d="M16 29C9.2 25.2 3.6 17.4 4.6 4.2 11.8 6.2 16.2 13 16 29Z" fill="url(#gLeafA)" />
+      <path d="M16 29C22.8 25.2 28.4 17.4 27.4 4.2 20.2 6.2 15.8 13 16 29Z" fill="url(#gLeafB)" opacity=".92" />
+      <circle cx="16" cy="9" r="2.4" fill="#F3EFE4" />
+    </symbol>
+    <symbol id="check" viewBox="0 0 24 24"><path d="M5 12.5l4.2 4.2L19 7" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" pathLength="1" /></symbol>
+    <symbol id="cross" viewBox="0 0 24 24"><path d="M7 7l10 10M17 7L7 17" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" pathLength="1" /></symbol>
+    <symbol id="tilde" viewBox="0 0 24 24"><path d="M5 13c2.5-3 4.5-3 7 0s4.5 3 7 0" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" pathLength="1" /></symbol>
+    <symbol id="arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" /></symbol>
+  </svg>
+
+  <!-- 3D stage (particle morph) -->
+  <canvas class="webgl" aria-hidden="true"></canvas>
+  <div class="grain" aria-hidden="true"></div>
+
+  <!-- Cursor -->
+  <div class="cursor" aria-hidden="true"><div class="cursor__dot"></div><div class="cursor__ring"></div></div>
+
+  <!-- ============ NAV ============ -->
+  <header class="nav">
+    <a href="#top" class="nav__brand" aria-label="Nivara home">
+      <svg viewBox="0 0 32 32"><use href="#mark" /></svg>
+      <span>Nivara</span>
+    </a>
+    <nav class="nav__links" aria-label="Primary">
+      <a href="#material">Material</a>
+      <a href="#process">Process</a>
+      <a href="#compare">Compare</a>
+      <a href="#applications">Packaging</a>
+      <a href="#team">Team</a>
+    </nav>
+    <a href="#contact" class="btn btn--small btn--lime magnetic nav__cta"><span>Partner with us</span></a>
+    <button class="nav__burger" aria-label="Open menu" aria-expanded="false"><span></span><span></span></button>
+  </header>
+
+  <div class="menu" aria-hidden="true">
+    <nav>
+      <a href="#material"><i class="mono">01</i>Material</a>
+      <a href="#process"><i class="mono">02</i>Process</a>
+      <a href="#compare"><i class="mono">03</i>Compare</a>
+      <a href="#applications"><i class="mono">04</i>Packaging</a>
+      <a href="#team"><i class="mono">05</i>Team</a>
+      <a href="#contact"><i class="mono">06</i>Contact</a>
+    </nav>
+  </div>
+
+  <main id="top">
+
+    <!-- ============ HERO ============ -->
+    <section class="hero">
+      <div class="hero__meta mono">
+        <span>Nivara · Bio-materials</span>
+        <span class="hero__live"><i></i>Nivara Bioform in development</span>
+      </div>
+
+      <h1 class="hero__title">
+        <span class="line"><span class="line__in">Packaging</span></span>
+        <span class="line"><span class="line__in">that <em>returns</em></span></span>
+        <span class="line"><span class="line__in">to nature.</span></span>
+      </h1>
+
+      <div class="hero__bottom">
+        <p class="hero__lede hero-fade">
+          <strong>Nivara Bioform</strong> is a bio-polymer grown by microbes from waste. It performs like plastic on the shelf
+          and breaks down like a leaf after use. No fossil fuels, no microplastics left behind.
+        </p>
+        <div class="hero__ctas hero-fade">
+          <a href="#material" class="btn btn--lime magnetic"><span>Discover Bioform</span><svg><use href="#arrow" /></svg></a>
+          <a href="#contact" class="btn btn--ghost magnetic"><span>Pilot with us</span></a>
+        </div>
+      </div>
+
+      <div class="hero__scroll mono hero-fade" aria-hidden="true"><span>Scroll</span><i></i></div>
+    </section>
+
+    <!-- ============ MARQUEE ============ -->
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee__track">
+        <div class="marquee__group">
+          <span>Plastic-free</span><svg><use href="#mark" /></svg>
+          <span>Microbe-made</span><svg><use href="#mark" /></svg>
+          <span>Made from waste</span><svg><use href="#mark" /></svg>
+          <span>No microplastics</span><svg><use href="#mark" /></svg>
+          <span>Compost &amp; marine degradable</span><svg><use href="#mark" /></svg>
+          <span>Drop-in manufacturing</span><svg><use href="#mark" /></svg>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ PROBLEM ============ -->
+    <section class="problem light" id="problem">
+      <div class="container">
+        <div class="section-head">
+          <p class="eyebrow mono">The problem</p>
+          <h2 class="h2 split-words">Plastic packaging is used for minutes and lasts for centuries.</h2>
+        </div>
+
+        <div class="stats">
+          <article class="stat">
+            <div class="stat__num"><span class="count" data-to="400">0</span><sup>Mt+</sup></div>
+            <p>of plastic produced worldwide every year</p>
+          </article>
+          <article class="stat">
+            <div class="stat__num"><span class="count" data-to="36">0</span><sup>%</sup></div>
+            <p>of all plastic made goes into packaging, its largest single use</p>
+          </article>
+          <article class="stat">
+            <div class="stat__num"><span class="count" data-to="9">0</span><sup>%</sup></div>
+            <p>of plastic waste gets recycled. The rest is burned, buried or leaks out</p>
+          </article>
+          <article class="stat">
+            <div class="stat__num"><span class="count" data-to="11">0</span><sup>Mt</sup></div>
+            <p>of plastic flows into the ocean each year</p>
+          </article>
+        </div>
+        <p class="sources mono">Mt = million tonnes. Sources: UNEP; OECD Global Plastics Outlook (2022); Pew Charitable Trusts, <i>Breaking the Plastic Wave</i> (2020).</p>
+
+        <!-- Decomposition explorer -->
+        <div class="decay" id="decay">
+          <div class="decay__head">
+            <p class="eyebrow mono">Time machine</p>
+            <h3 class="h3">Drag time forward.</h3>
+            <p>Same bottle, two materials. See what's left after it's thrown away.</p>
+          </div>
+
+          <div class="decay__stage">
+            <figure class="decay__item decay__item--plastic">
+              <svg viewBox="0 0 120 220" class="bottle">
+                <g class="bottle__body">
+                  <path d="M48 8h24v18c0 6 18 14 18 34v138c0 8-6 14-14 14H44c-8 0-14-6-14-14V60c0-20 18-28 18-34z" />
+                  <path class="bottle__label" d="M30 96h60v52H30z" />
+                </g>
+                <g class="frags"></g>
+                <path class="soil" d="M10 216h100" />
+              </svg>
+              <figcaption>
+                <span class="mono">Conventional plastic</span>
+                <strong class="decay__state js-plastic-state">Intact</strong>
+              </figcaption>
+            </figure>
+
+            <figure class="decay__item decay__item--pha">
+              <svg viewBox="0 0 120 220" class="bottle">
+                <defs>
+                  <clipPath id="phaClip"><rect class="pha-clip" x="0" y="0" width="120" height="220" /></clipPath>
+                </defs>
+                <g clip-path="url(#phaClip)">
+                  <g class="bottle__body">
+                    <path d="M48 8h24v18c0 6 18 14 18 34v138c0 8-6 14-14 14H44c-8 0-14-6-14-14V60c0-20 18-28 18-34z" />
+                    <path class="bottle__label" d="M30 96h60v52H30z" />
+                  </g>
+                </g>
+                <g class="crumbs"></g>
+                <g class="sprout">
+                  <path class="sprout__stem" d="M60 216v-34" />
+                  <path class="sprout__leaf" d="M60 190c-14 0-22-8-24-20 14 0 22 7 24 20z" />
+                  <path class="sprout__leaf" d="M60 184c12 0 20-8 22-20-12 0-20 7-22 20z" />
+                </g>
+                <path class="soil" d="M10 216h100" />
+              </svg>
+              <figcaption>
+                <span class="mono">Nivara Bioform</span>
+                <strong class="decay__state js-pha-state">Intact</strong>
+              </figcaption>
+            </figure>
+          </div>
+
+          <div class="decay__control">
+            <div class="decay__readout"><span class="js-years">Day 0</span></div>
+            <input type="range" min="0" max="1000" value="0" step="1" class="decay__range" aria-label="Time after disposal" />
+            <div class="decay__ticks mono"><span>0</span><span>1 yr</span><span>10 yrs</span><span>100 yrs</span><span>500 yrs</span></div>
+            <p class="decay__note">Illustrative only. PHA-based materials break down in months under active compost or marine conditions; the exact rate depends on thickness, temperature and microbial activity. The ~450-year figure for plastic bottles is a widely cited NOAA estimate.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ MATERIAL ============ -->
+    <section class="material" id="material">
+      <div class="container material__grid">
+        <div class="material__copy">
+          <p class="eyebrow mono">What is Nivara Bioform</p>
+          <h2 class="h2 split-words">A plastic alternative <em>grown</em>, not drilled.</h2>
+          <p class="body-lg reveal-up">
+            Nivara Bioform is made of <strong>PHA</strong> (polyhydroxyalkanoate): a natural polyester that microbes make
+            and store inside their cells as an energy reserve, much like we store fat.
+          </p>
+          <p class="reveal-up">
+            We feed microbes waste streams such as used cooking oil and plant residues, harvest the polymer they build up,
+            and compound it into pellets that run on the same moulding lines as conventional plastic.
+            Because nature made the molecule, microbes in soil, compost and seawater recognise it and can digest it
+            back into CO₂, water and biomass.
+          </p>
+        </div>
+
+        <ul class="pillars">
+          <li class="pillar tilt">
+            <span class="pillar__n mono">01</span>
+            <h3>Made from waste</h3>
+            <p>Second-generation feedstocks, not food crops and not fossil oil.</p>
+          </li>
+          <li class="pillar tilt">
+            <span class="pillar__n mono">02</span>
+            <h3>Plastic-grade performance</h3>
+            <p>A rigid, mouldable thermoplastic with useful moisture and oxygen barrier properties.</p>
+          </li>
+          <li class="pillar tilt">
+            <span class="pillar__n mono">03</span>
+            <h3>Drop-in manufacturing</h3>
+            <p>Pellets run on existing injection, extrusion and blow-moulding equipment.</p>
+          </li>
+          <li class="pillar tilt">
+            <span class="pillar__n mono">04</span>
+            <h3>Leaves nothing behind</h3>
+            <p>Designed to biodegrade fully, with no persistent microplastics.</p>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ============ PROCESS (pinned 3D story) ============ -->
+    <section class="process" id="process">
+      <div class="process__pin">
+        <div class="container process__inner">
+          <div class="process__left">
+            <p class="eyebrow mono">How it's made</p>
+            <div class="process__steps">
+              <article class="step is-active" data-step="0">
+                <span class="step__n mono">01 / 05 · Feed</span>
+                <h3 class="h3">Start with waste.</h3>
+                <p>Used cooking oil, plant residues and other second-generation feedstocks become the food source. Nothing is taken from the food chain or the ground.</p>
+              </article>
+              <article class="step" data-step="1">
+                <span class="step__n mono">02 / 05 · Ferment</span>
+                <h3 class="h3">Microbes do the work.</h3>
+                <p>In fermentation tanks, microbes eat the feedstock and store the surplus as PHA granules inside their cells. Each cell becomes a tiny polymer factory.</p>
+              </article>
+              <article class="step" data-step="2">
+                <span class="step__n mono">03 / 05 · Harvest</span>
+                <h3 class="h3">Harvest &amp; formulate.</h3>
+                <p>The polymer is extracted, purified and compounded into Nivara Bioform pellets, tuned for stiffness, clarity, barrier and colour.</p>
+              </article>
+              <article class="step" data-step="3">
+                <span class="step__n mono">04 / 05 · Form</span>
+                <h3 class="h3">Shape it like plastic.</h3>
+                <p>Converters mould bottles, jars, caps, trays and films on the machines they already own. No new factory required.</p>
+              </article>
+              <article class="step" data-step="4">
+                <span class="step__n mono">05 / 05 · Return</span>
+                <h3 class="h3">Give it back.</h3>
+                <p>After use, microbes in compost, soil or the sea digest the material into CO₂, water and biomass, closing the loop where it began.</p>
+              </article>
+            </div>
+            <div class="process__progress" aria-hidden="true">
+              <span></span><span></span><span></span><span></span><span></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ COMPARE ============ -->
+    <section class="compare light" id="compare">
+      <div class="container">
+        <div class="section-head">
+          <p class="eyebrow mono">How it stacks up</p>
+          <h2 class="h2 split-words">Not all "bioplastics" are equal.</h2>
+          <p class="section-head__sub reveal-up">Many plant-based plastics only break down in industrial composters. Nivara Bioform is designed to break down where waste actually ends up.</p>
+        </div>
+
+        <div class="table" role="table" aria-label="Material comparison">
+          <div class="table__row table__row--head" role="row">
+            <span role="columnheader"></span>
+            <span role="columnheader">Conventional plastic<small>PET · PP · PE</small></span>
+            <span role="columnheader">Typical bioplastic<small>PLA</small></span>
+            <span role="columnheader" class="is-pha">Nivara Bioform<small>Polyhydroxyalkanoate</small></span>
+          </div>
+          <div class="table__row" role="row">
+            <span role="rowheader">Source</span>
+            <span role="cell" data-label="Plastic">Fossil oil &amp; gas</span>
+            <span role="cell" data-label="PLA">Food crops (corn, sugarcane)</span>
+            <span role="cell" data-label="Nivara Bioform" class="is-pha">Waste, via microbes</span>
+          </div>
+          <div class="table__row" role="row">
+            <span role="rowheader">Performs like plastic in use</span>
+            <span role="cell" data-label="Plastic"><svg class="ic ic--yes"><use href="#check" /></svg></span>
+            <span role="cell" data-label="PLA"><svg class="ic ic--yes"><use href="#check" /></svg></span>
+            <span role="cell" data-label="Nivara Bioform" class="is-pha"><svg class="ic ic--yes"><use href="#check" /></svg></span>
+          </div>
+          <div class="table__row" role="row">
+            <span role="rowheader">Runs on existing machinery</span>
+            <span role="cell" data-label="Plastic"><svg class="ic ic--yes"><use href="#check" /></svg></span>
+            <span role="cell" data-label="PLA"><svg class="ic ic--mid"><use href="#tilde" /></svg>Mostly</span>
+            <span role="cell" data-label="Nivara Bioform" class="is-pha"><svg class="ic ic--yes"><use href="#check" /></svg></span>
+          </div>
+          <div class="table__row" role="row">
+            <span role="rowheader">Home compostable</span>
+            <span role="cell" data-label="Plastic"><svg class="ic ic--no"><use href="#cross" /></svg></span>
+            <span role="cell" data-label="PLA"><svg class="ic ic--no"><use href="#cross" /></svg>Industrial only</span>
+            <span role="cell" data-label="Nivara Bioform" class="is-pha"><svg class="ic ic--yes"><use href="#check" /></svg>Designed for</span>
+          </div>
+          <div class="table__row" role="row">
+            <span role="rowheader">Biodegrades in soil &amp; sea</span>
+            <span role="cell" data-label="Plastic"><svg class="ic ic--no"><use href="#cross" /></svg></span>
+            <span role="cell" data-label="PLA"><svg class="ic ic--no"><use href="#cross" /></svg></span>
+            <span role="cell" data-label="Nivara Bioform" class="is-pha"><svg class="ic ic--yes"><use href="#check" /></svg>Designed for</span>
+          </div>
+          <div class="table__row" role="row">
+            <span role="rowheader">Leaves persistent microplastics</span>
+            <span role="cell" data-label="Plastic"><svg class="ic ic--no"><use href="#cross" /></svg>Yes</span>
+            <span role="cell" data-label="PLA"><svg class="ic ic--mid"><use href="#tilde" /></svg>If not composted</span>
+            <span role="cell" data-label="Nivara Bioform" class="is-pha"><svg class="ic ic--yes"><use href="#check" /></svg>No</span>
+          </div>
+        </div>
+        <p class="sources mono">Nivara Bioform properties describe design targets. Certification (EN 13432, home-compost and ASTM D6691 marine tests) is on our roadmap.</p>
+      </div>
+    </section>
+
+    <!-- ============ APPLICATIONS (horizontal) ============ -->
+    <section class="apps" id="applications">
+      <div class="apps__pin">
+        <div class="apps__head container">
+          <p class="eyebrow mono">Built for packaging</p>
+          <h2 class="h2 split-words">One material. Every shelf.</h2>
+        </div>
+        <div class="apps__track">
+          <article class="app tilt">
+            <div class="app__art">
+              <svg viewBox="0 0 200 160"><g class="draw">
+                <rect x="58" y="30" width="84" height="22" rx="6" />
+                <path d="M54 58h92v62c0 10-8 18-18 18H72c-10 0-18-8-18-18z" />
+                <path d="M54 80h92" /><circle cx="100" cy="108" r="12" />
+              </g></svg>
+            </div>
+            <span class="app__n mono">01</span>
+            <h3>Beauty &amp; personal care</h3>
+            <p>Jars, droppers, caps and compacts. Premium feel without the guilt.</p>
+          </article>
+          <article class="app tilt">
+            <div class="app__art">
+              <svg viewBox="0 0 200 160"><g class="draw">
+                <path d="M30 70h140l-12 54c-2 8-8 12-16 12H58c-8 0-14-4-16-12z" />
+                <path d="M24 70h152" /><path d="M78 70v66M122 70v66" />
+                <path d="M60 52c10-14 26-14 36 0M108 50c8-10 22-10 30 2" />
+              </g></svg>
+            </div>
+            <span class="app__n mono">02</span>
+            <h3>Food trays &amp; containers</h3>
+            <p>Rigid trays, clamshells and tubs for fresh produce and ready meals.</p>
+          </article>
+          <article class="app tilt">
+            <div class="app__art">
+              <svg viewBox="0 0 200 160"><g class="draw">
+                <path d="M90 14h20v14c0 4 14 10 14 26v86c0 6-4 10-10 10H86c-6 0-10-4-10-10V54c0-16 14-22 14-26z" />
+                <path d="M76 80h48M76 116h48" /><path d="M88 6h24v8H88z" />
+              </g></svg>
+            </div>
+            <span class="app__n mono">03</span>
+            <h3>Bottles &amp; closures</h3>
+            <p>Blow-moulded bottles, caps and pumps for home care and beverages.</p>
+          </article>
+          <article class="app tilt">
+            <div class="app__art">
+              <svg viewBox="0 0 200 160"><g class="draw">
+                <path d="M56 20h88l-6 16 8 100c0 6-4 10-10 10H64c-6 0-10-4-10-10l8-100z" />
+                <path d="M62 36h76" /><path d="M78 20v-8h44v8" />
+                <path d="M100 66c-14 10-14 30 0 40 14-10 14-30 0-40z" /><path d="M100 106V80" />
+              </g></svg>
+            </div>
+            <span class="app__n mono">04</span>
+            <h3>Films &amp; pouches</h3>
+            <p>Flexible wraps, sachets and stand-up pouches with moisture barrier.</p>
+          </article>
+          <article class="app tilt">
+            <div class="app__art">
+              <svg viewBox="0 0 200 160"><g class="draw">
+                <path d="M62 20v40c0 8 6 12 12 12v74" /><path d="M54 20v30M70 20v30" />
+                <path d="M126 146V72c-12-4-16-20-16-32 0-14 6-22 16-22s16 8 16 22c0 12-4 28-16 32" />
+              </g></svg>
+            </div>
+            <span class="app__n mono">05</span>
+            <h3>Cutlery &amp; foodservice</h3>
+            <p>Spoons, forks, stirrers, lids and straws that don't outlive the meal.</p>
+          </article>
+          <article class="app tilt">
+            <div class="app__art">
+              <svg viewBox="0 0 200 160"><g class="draw">
+                <rect x="40" y="36" width="120" height="88" rx="10" />
+                <circle cx="72" cy="66" r="12" /><circle cx="128" cy="66" r="12" />
+                <circle cx="72" cy="98" r="12" /><circle cx="128" cy="98" r="12" />
+              </g></svg>
+            </div>
+            <span class="app__n mono">06</span>
+            <h3>Healthcare &amp; pharma</h3>
+            <p>Blister trays, pill pots and single-use components.</p>
+          </article>
+          <div class="apps__end">
+            <p class="h3">Have a format in mind?</p>
+            <a href="#contact" class="btn btn--lime magnetic"><span>Let's test it</span><svg><use href="#arrow" /></svg></a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ WHO WE WORK WITH ============ -->
+    <section class="audience" id="audience">
+      <div class="container">
+        <div class="section-head">
+          <p class="eyebrow mono">Who we work with</p>
+          <h2 class="h2 split-words">Switching should be the easy part.</h2>
+        </div>
+        <div class="cards3">
+          <article class="acard tilt">
+            <div class="acard__icon"><svg viewBox="0 0 48 48"><path d="M10 18l14-8 14 8v16l-14 8-14-8z M10 18l14 8 14-8 M24 26v16" /></svg></div>
+            <h3>Brands</h3>
+            <p>Meet plastic-reduction targets and regulation with packaging your customers can feel good about throwing away.</p>
+          </article>
+          <article class="acard tilt">
+            <div class="acard__icon"><svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="8" /><path d="M24 6v6M24 36v6M6 24h6M36 24h6M11 11l4 4M33 33l4 4M11 37l4-4M33 15l4-4" /></svg></div>
+            <h3>Converters &amp; manufacturers</h3>
+            <p>Add a compostable grade to your line-up without retooling. Run trials on your existing equipment.</p>
+          </article>
+          <article class="acard tilt">
+            <div class="acard__icon"><svg viewBox="0 0 48 48"><path d="M8 38l10-12 8 6 14-18" /><path d="M32 14h8v8" /></svg></div>
+            <h3>Investors &amp; partners</h3>
+            <p>Back a material platform aimed at the largest single use of plastic on the planet.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ TEAM ============ -->
+    <section class="team light" id="team">
+      <div class="container">
+        <div class="section-head">
+          <p class="eyebrow mono">The founders</p>
+          <h2 class="h2 split-words">Two founders, one stubborn idea.</h2>
+        </div>
+        <div class="team__grid">
+          <article class="member tilt">
+            <div class="member__avatar"><div class="blob"></div><span>D</span></div>
+            <div class="member__info">
+              <h3>Darshan</h3>
+              <p class="member__role mono">Founder &amp; CEO</p>
+              <p>Leads Nivara's vision, partnerships and go-to-market, bringing Nivara Bioform to the brands and converters who need it.</p>
+            </div>
+          </article>
+          <article class="member tilt">
+            <div class="member__avatar"><div class="blob blob--b"></div><span>R</span></div>
+            <div class="member__info">
+              <h3>Rudra</h3>
+              <p class="member__role mono">Founder &amp; CTO</p>
+              <p>Leads technology and product: material development, process engineering and the systems that take Nivara Bioform from lab to line.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ CONTACT ============ -->
+    <section class="contact" id="contact">
+      <div class="container contact__grid">
+        <div class="contact__copy">
+          <p class="eyebrow mono">Get involved</p>
+          <h2 class="contact__title split-words">Let's make plastic <em>a thing of the past.</em></h2>
+          <p class="body-lg reveal-up">Pilot partners, packaging converters, investors and curious minds. We'd love to hear from you.</p>
+        </div>
+
+        <form class="form reveal-up" novalidate>
+          <div class="field">
+            <input id="f-name" name="name" type="text" placeholder=" " required autocomplete="name" />
+            <label for="f-name">Your name</label>
+          </div>
+          <div class="field">
+            <input id="f-email" name="email" type="email" placeholder=" " required autocomplete="email" />
+            <label for="f-email">Email</label>
+          </div>
+          <div class="field">
+            <input id="f-company" name="company" type="text" placeholder=" " autocomplete="organization" />
+            <label for="f-company">Company</label>
+          </div>
+          <fieldset class="chips">
+            <legend class="mono">I'm a…</legend>
+            <label><input type="radio" name="type" value="brand" checked /><span>Brand</span></label>
+            <label><input type="radio" name="type" value="manufacturer" /><span>Manufacturer</span></label>
+            <label><input type="radio" name="type" value="investor" /><span>Investor</span></label>
+            <label><input type="radio" name="type" value="other" /><span>Other</span></label>
+          </fieldset>
+          <div class="field">
+            <textarea id="f-msg" name="message" rows="3" placeholder=" "></textarea>
+            <label for="f-msg">Tell us about your packaging</label>
+          </div>
+          <button type="submit" class="btn btn--lime btn--block magnetic"><span>Send message</span><svg><use href="#arrow" /></svg></button>
+          <p class="form__status" role="status" aria-live="polite"></p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="footer">
+    <div class="container footer__top">
+      <div>
+        <a href="#top" class="nav__brand"><svg viewBox="0 0 32 32"><use href="#mark" /></svg><span>Nivara</span></a>
+        <p class="footer__tag">Made by microbes. Returned to nature.</p>
+      </div>
+      <div class="footer__cols">
+        <div><p class="mono">Explore</p><a href="#material">Material</a><a href="#process">Process</a><a href="#compare">Compare</a><a href="#applications">Packaging</a></div>
+        <div><p class="mono">Company</p><a href="#team">Team</a><a href="#contact">Contact</a><a href="#contact">Careers</a></div>
+      </div>
+    </div>
+    <div class="footer__word" aria-hidden="true">
+      <span>N</span><span>i</span><span>v</span><span>a</span><span>r</span><span>a</span>
+    </div>
+    <div class="container footer__bottom mono">
+      <span>© <span class="js-year">2026</span> Nivara. All rights reserved.</span>
+      <a href="#top" class="to-top">Back to top ↑</a>
+    </div>
+  </footer>
+
+  <!-- Libraries -->
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
+  <!-- Site -->
+  <script src="assets/js/scene.js"></script>
+  <script src="assets/js/main.js"></script>
+</body>
+</html>
